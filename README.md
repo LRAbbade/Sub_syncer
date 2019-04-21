@@ -1,2 +1,3 @@
-# Sub_syncer
+# Sub Syncer
+
 An application to sync '.srt' subs
