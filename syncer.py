@@ -3,6 +3,8 @@ import re
 import sys
 from datetime import datetime, timedelta
 
+FORMAT = "%H:%M:%S,%f"
+
 
 def open_file(file):
     with open(file, 'r', encoding='ISO-8859-1') as file:
@@ -16,8 +18,8 @@ def save_file(file, _str):
 
 def __fix(seconds=0, microseconds=0):
     return lambda line: ' --> '.join([(i + timedelta(seconds=seconds,
-                                                     microseconds=microseconds)).strftime("%H:%M:%S,%f")[:-3]
-                                      for i in [datetime.strptime(d, "%H:%M:%S,%f")
+                                                     microseconds=microseconds)).strftime(FORMAT)[:-3]
+                                      for i in [datetime.strptime(d, FORMAT)
                                                 for d in line.split(' --> ')]])
 
 
@@ -47,9 +49,6 @@ def get_offset(offset):
     micro_size = len(micro.replace('-', ''))
     if micro_size < 6:
         micro += '0' * (6 - micro_size)
-
-    print(f'seconds = {seconds}')
-    print(f'micro = {micro}')
 
     return [int(i) for i in [seconds, micro]]
 
